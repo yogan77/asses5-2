@@ -1,7 +1,10 @@
-package com.registration;
+package com.example;
 
 import java.util.Scanner;
 
+/**
+ * Application terminal controller layer.
+ */
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -16,24 +19,28 @@ public class Main {
         Student student = new Student(name, studentId);
         
         System.out.print("How many subjects do you want to register? ");
-        int subjectCount = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        
-        for (int i = 0; i < subjectCount; i++) {
-            System.out.println("\nSubject #" + (i + 1) + " Registration:");
-            System.out.print(" -> Enter Subject Name: ");
-            String subjectName = scanner.nextLine();
+        if (scanner.hasNextInt()) {
+            int subjectCount = scanner.nextInt();
+            scanner.nextLine(); // Clear scanner buffering line
             
-            System.out.print(" -> Enter Credit Value: ");
-            int credits = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-            
-            student.registerCourse(new Course(subjectName, credits));
+            for (int i = 0; i < subjectCount; i++) {
+                System.out.println("\nSubject #" + (i + 1) + " Registration:");
+                System.out.print(" -> Enter Subject Name: ");
+                String subjectName = scanner.nextLine();
+                
+                System.out.print(" -> Enter Credit Value: ");
+                int credits = 0;
+                if (scanner.hasNextInt()) {
+                    credits = scanner.nextInt();
+                    scanner.nextLine(); // Clear scanner buffering line
+                }
+                
+                student.registerCourse(subjectName, credits);
+            }
+            student.displayRegistrationReport();
+        } else {
+            System.out.println("Invalid structural sequence selection. Terminating.");
         }
-        
-        // Output evaluation summary
-        student.displayRegistrationReport();
-        
         scanner.close();
     }
 }
