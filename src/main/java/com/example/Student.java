@@ -1,12 +1,36 @@
-package com.registration;
+package com.example;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Embedded Course Class to keep the project strictly restricted to two files.
+ */
+class Course {
+    private final String courseName;
+    private final int credits;
+
+    public Course(String courseName, int credits) {
+        this.courseName = courseName;
+        this.credits = credits;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+}
+
+/**
+ * Handles student registration and qualification evaluations.
+ */
 public class Student {
-    private String name;
-    private String studentId;
-    private List<Course> registeredCourses;
+    private final String name;
+    private final String studentId;
+    private final List<Course> registeredCourses;
     private static final int MINIMUM_CREDIT_THRESHOLD = 15;
 
     public Student(String name, String studentId) {
@@ -15,10 +39,8 @@ public class Student {
         this.registeredCourses = new ArrayList<>();
     }
 
-    public void registerCourse(Course course) {
-        if (course != null) {
-            registeredCourses.add(course);
-        }
+    public void registerCourse(String courseName, int credits) {
+        registeredCourses.add(new Course(courseName, credits));
     }
 
     public int calculateTotalCredits() {
